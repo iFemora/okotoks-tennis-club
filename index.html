@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Tennis Club</title>
+  <meta name="description" content="A simple, free one‑page website for a local tennis club." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23d5ff3f' stroke='%23000000' stroke-width='4'/%3E%3Cpath d='M12 50c20-25 56-25 76 0' fill='none' stroke='%23000' stroke-width='4'/%3E%3Cpath d='M50 12c25 20 25 56 0 76' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #0f1730;
+      --muted: #9bb0d3;
+      --text: #e9f0ff;
+      --brand: #8efc3c; /* tennis-ball green */
+      --accent: #4cc9f0;
+      --ring: rgba(142,252,60,.45);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 80% -10%, #13214a, transparent 60%),
+                  radial-gradient(800px 400px at -10% 0%, #101b3b, transparent 50%),
+                  var(--bg);
+      line-height: 1.6;
+    }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(to bottom, rgba(15,23,48,.85), rgba(15,23,48,.45));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: .8rem 0; }
+    .logo { display: inline-flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: .3px; }
+    .logo .ball { width: 28px; height: 28px; border-radius: 999px; background: var(--brand); box-shadow: 0 0 0 4px rgba(142,252,60,.15), 0 8px 24px rgba(0,0,0,.35); position: relative; }
+    .logo .ball::before, .logo .ball::after { content:""; position:absolute; inset: 0; border-radius:999px; border: 2px solid rgba(0,0,0,.85); mask: radial-gradient(120% 120% at 80% 20%, transparent 52%, #000 52%); }
+    .nav a { color: var(--text); opacity: .85; margin-left: 1rem; }
+    .nav a:hover { opacity: 1; }
+    .btn { display: inline-flex; align-items: center; gap: .6rem; border: 1px solid rgba(255,255,255,.18); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); color: var(--text); padding: .6rem .9rem; border-radius: 12px; cursor: pointer; box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 8px 24px rgba(0,0,0,.25); }
+    .btn:hover { border-color: rgba(255,255,255,.35); }
+
+    .hero { padding: 5rem 0 3rem; display: grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; align-items: center; }
+    .hero h1 { font-size: clamp(2rem, 2.6rem + 1vw, 3.2rem); line-height: 1.1; margin: 0 0 1rem; }
+    .sub { color: var(--muted); max-width: 50ch; }
+    .hero .card { background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .tile { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 1rem; }
+    .tile h3 { margin: .2rem 0 .4rem; }
+    .badge { display:inline-block; padding:.2rem .5rem; border-radius: 999px; background: rgba(142,252,60,.12); color: var(--brand); border: 1px solid var(--ring); font-size: .8rem; }
+
+    section { padding: 3rem 0; }
+    .section-title { font-size: 1.6rem; margin-bottom: 1rem; }
+
+    table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; overflow: hidden; }
+    th, td { padding: .8rem .9rem; border-bottom: 1px solid rgba(255,255,255,.06); text-align: left; }
+    th { background: rgba(255,255,255,.04); font-weight: 700; }
+
+    form { display:grid; gap:.8rem; background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 1rem; }
+    input, select, textarea { width: 100%; background: rgba(255,255,255,.06); color: var(--text); border: 1px solid rgba(255,255,255,.16); padding: .7rem .8rem; border-radius: 10px; }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--ring); border-color: var(--ring); }
+
+    .footer { padding: 2rem 0; color: #a7b6db; border-top: 1px solid rgba(255,255,255,.06); }
+    .cards { display:grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-3, .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo"><span class="ball" aria-hidden="true"></span><span>Community Tennis Club</span></div>
+      <nav aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#join">Join</a>
+        <a href="#contact" class="btn">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <h1 id="hero-title">Play more tennis. Meet new people. Grow our local club.</h1>
+        <p class="sub">This is a simple, no‑frills website you can run for free. Add sessions, announce ladders & socials, and let neighbors join without fuss. Swap the text and you're live today.</p>
+        <div style="display:flex; gap:.6rem; margin-top: .8rem;">
+          <a class="btn" href="#join">Become a member</a>
+          <button class="btn" id="addCalendarBtn" type="button">Add next meetup to calendar</button>
+        </div>
+        <p style="margin-top:.6rem; color:var(--muted); font-size:.95rem">Tip: replace placeholder email + map below and you're good to share.</p>
+      </div>
+      <div class="card">
+        <div class="grid-3" role="list">
+          <div class="tile" role="listitem">
+            <span class="badge">Free courts</span>
+            <h3>Community Nights</h3>
+            <p>Weekly socials for all levels. We mix in, play short sets, and rotate courts.</p>
+          </div>
+          <div class="tile" role="listitem">
+            <span class="badge">Beginner‑friendly</span>
+            <h3>Coaching & Drills</h3>
+            <p>Group clinics focused on fundamentals, footwork, and fun.</p>
+          </div>
+          <div class="tile" role="listitem">
+            <span class="badge">Competitive</span>
+            <h3>Box Ladder</h3>
+            <p>Monthly ladder with promotion/relegation. Great way to find matches.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <h2 class="section-title" id="about-title">About the Club</h2>
+      <p>We're a friendly, growing tennis club serving our neighborhood. Whether you're picking up a racquet for the first time or chasing NTRP glory, you'll find partners, coaches, and courts. We're volunteer‑run and keep costs low by keeping things simple.</p>
+    </section>
+
+    <section id="programs" aria-labelledby="programs-title">
+      <h2 class="section-title" id="programs-title">Programs</h2>
+      <div class="cards">
+        <div class="tile">
+          <h3>Community Night</h3>
+          <p>Every Thursday • 6:30–8:30pm • Mix & play format. Bring water.</p>
+        </div>
+        <div class="tile">
+          <h3>Adult Clinics</h3>
+          <p>Saturdays • 10–11am Beginners • 11–12pm Intermediates. Racquet provided on request.</p>
+        </div>
+        <div class="tile">
+          <h3>Junior Sessions</h3>
+          <p>Wednesdays • 4–5pm. Ages 8–14. Focus on fun & fundamentals.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedule" aria-labelledby="schedule-title">
+      <h2 class="section-title" id="schedule-title">Upcoming Schedule</h2>
+      <table aria-describedby="schedule-note">
+        <thead>
+          <tr><th>Date</th><th>Event</th><th>Location</th><th>Notes</th></tr>
+        </thead>
+        <tbody id="scheduleBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+      <p id="schedule-note" style="color:var(--muted); margin:.5rem 0 0">Want your match added? Email us and we'll post it.</p>
+    </section>
+
+    <section id="join" aria-labelledby="join-title">
+      <h2 class="section-title" id="join-title">Join the Club</h2>
+      <p>Fill the quick form and our volunteers will get back to you. For a fully free setup today, this form opens your email client and pre‑fills details. Replace the address below with the club email when ready.</p>
+      <form id="joinForm">
+        <label>
+          Full Name
+          <input required name="name" placeholder="Your name" />
+        </label>
+        <label>
+          Email
+          <input required type="email" name="email" placeholder="you@example.com" />
+        </label>
+        <label>
+          Playing Level
+          <select name="level">
+            <option>Beginner</option>
+            <option>Improver</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="4" placeholder="Tell us what you’re looking for (e.g., social hits, clinics, ladder)"></textarea>
+        </label>
+        <button class="btn" type="submit">Send join request</button>
+      </form>
+      <p style="color:var(--muted); font-size:.95rem">Alternative: swap this for an embedded Google Form later for automatic collection.</p>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 class="section-title" id="contact-title">Contact & Courts</h2>
+      <div class="cards">
+        <div class="tile">
+          <h3>Email</h3>
+          <p><a id="contactEmail" href="mailto:tennis@example.com">tennis@example.com</a></p>
+          <p style="color:var(--muted)">Replace with your real club email.</p>
+        </div>
+        <div class="tile">
+          <h3>Courts</h3>
+          <p>Community Park Tennis Courts, Your City</p>
+          <p><a target="_blank" rel="noopener" href="https://maps.google.com/?q=Community%20Park%20Tennis%20Courts">Open in Google Maps</a></p>
+        </div>
+        <div class="tile">
+          <h3>Social</h3>
+          <p><a href="#" aria-disabled="true">Instagram</a> • <a href="#" aria-disabled="true">Facebook</a></p>
+          <p style="color:var(--muted)">Add links when you create them.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+      <p>© <span id="year"></span> Community Tennis Club</p>
+      <p style="font-size:.95rem; color:var(--muted)">Built with a single HTML file — free to host.</p>
+    </div>
+  </footer>
+
+  <script>
+    // --- Dynamic bits to show it's alive ---
+    const schedule = [
+      { date: addDays(3), title: 'Community Night — Mix & Play', where: 'Community Park Courts', notes: 'Balls provided' },
+      { date: addDays(5), title: 'Adult Clinic — Footwork & Consistency', where: 'Court 2', notes: 'Coach Amy' },
+      { date: addDays(9), title: 'Box Ladder Round 1', where: 'Courts 1–3', notes: 'Report scores by 9pm' },
+    ];
+
+    function addDays(n) {
+      const d = new Date(); d.setDate(d.getDate()+n); return d; }
+    function fmt(d) {
+      return d.toLocaleDateString(undefined, { weekday:'short', month:'short', day:'numeric' });
+    }
+
+    const tbody = document.getElementById('scheduleBody');
+    schedule.sort((a,b)=>a.date-b.date).forEach(ev => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${fmt(ev.date)}</td><td>${ev.title}</td><td>${ev.where}</td><td>${ev.notes}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Join form -> mailto with prefilled subject/body
+    const joinForm = document.getElementById('joinForm');
+    joinForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(joinForm);
+      const name = data.get('name');
+      const email = data.get('email');
+      const level = data.get('level');
+      const message = data.get('message') || '';
+      const to = document.getElementById('contactEmail').textContent;
+      const subject = encodeURIComponent(`[Join Request] ${name} — ${level}`);
+      const body = encodeURIComponent(`Name: ${name}%0AEmail: ${email}%0ALevel: ${level}%0A%0A${message}`);
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    });
+
+    // Add a quick ICS calendar event for next Community Night
+    document.getElementById('addCalendarBtn').addEventListener('click', () => {
+      const ev = schedule[0];
+      const start = new Date(ev.date); start.setHours(18,30,0,0);
+      const end = new Date(ev.date); end.setHours(20,30,0,0);
+      const pad = n => String(n).padStart(2,'0');
+      const icsDate = d => `${d.getUTCFullYear()}${pad(d.getUTCMonth()+1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
+      const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Community Tennis Club//EN\nBEGIN:VEVENT\nUID:${Date.now()}@communitytennis\nDTSTAMP:${icsDate(new Date())}\nDTSTART:${icsDate(start)}\nDTEND:${icsDate(end)}\nSUMMARY:${ev.title}\nLOCATION:${ev.where}\nDESCRIPTION:${ev.notes}\nEND:VEVENT\nEND:VCALENDAR`;
+      const blob = new Blob([ics], { type: 'text/calendar' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'community-night.ics'; a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
